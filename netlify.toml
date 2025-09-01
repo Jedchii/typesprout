@@ -2,7 +2,7 @@
   command = ""
   publish = "."
 
-# Uncomment if you use SPA-style routing:
+# SPA routing (optional):
 # [[redirects]]
 #   from = "/*"
 #   to = "/index.html"
