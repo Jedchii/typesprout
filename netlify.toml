@@ -2,7 +2,7 @@
   command = ""
   publish = "."
 
-# SPA routing (optional):
+# SPA routing (optional)
 # [[redirects]]
 #   from = "/*"
 #   to = "/index.html"
