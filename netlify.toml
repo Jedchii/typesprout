@@ -1,9 +1,10 @@
 [build]
+  base = "."
   command = ""
   publish = "."
 
-# SPA routing (optional)
-# [[redirects]]
-#   from = "/*"
-#   to = "/index.html"
-#   status = 200
+# If your app uses client-side routing (optional but safe to include)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
