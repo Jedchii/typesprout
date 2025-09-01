@@ -299,6 +299,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Pixel Art Games** - Stardew Valley, Hyper Light Drifter
 - **Educational Gaming** - Making learning engaging and memorable
 
+### Creative Credits
+
+- **Minecraft** - Audio assets inspired and credited to Mojang's Minecraft as part of the immersive sound design
+- **Jump King** - Visual art style inspiration drawn from Jump King's distinctive pixel art aesthetic
+
 ### Open Source Community
 - **Web Standards** - HTML5, CSS3, and JavaScript best practices
 - **Accessibility Guidelines** - WCAG compliance and inclusive design
