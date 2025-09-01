@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TypeSprout – Opening</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="mainmenu.css" />
+  
+  <!-- CSS for integrated views -->
+  <link rel="stylesheet" href="../Main Game/style.css" />
+  <link rel="stylesheet" href="pages.css" />
+  <link rel="stylesheet" href="settings.css" />
+</head>
+<body>
+  <!-- SPA Container -->
+  <div id="spa-container">
+    <!-- Opening Cutscene View -->
+    <div id="opening-view" class="spa-view active">
+      <div class="cutscene-container">
+        <div class="stage" id="stage">
+          <!-- Video background with fallback -->
+          <video class="video-background" autoplay muted playsinline preload="auto" id="bgVideo">
+            <source src="video/background.mp4" type="video/mp4">
+            <!-- Fallback to static background -->
+            <img class="bg-fallback" src="image/background.png" alt="Background"/>
+          </video>
+
+          <!-- Optional overlay effects -->
+          <div class="sunlight-overlay"></div>
+
+          <!-- UI Elements -->
+          <h2 class="start-prompt" role="button" tabindex="0">CLICK TO START</h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Menu View -->
+    <div id="menu-view" class="spa-view">
+      <div class="menu-container">
+        <div class="menu-stage" id="menuStage">
+          <!-- Background (could be static or subtle animation) -->
+          <div class="menu-background"></div>
+          
+          <!-- Main Menu Content -->
+          <div class="menu-content">
+            <h1 class="menu-title">TYPESPROUT</h1>
+            
+            <nav class="menu-nav" role="navigation">
+              <button class="menu-button" data-action="play" role="button">
+                <span class="button-icon">🌱</span>
+                <span class="button-text">PLAY</span>
+              </button>
+              
+              <button class="menu-button" data-action="forest" role="button">
+                <span class="button-icon">🌲</span>
+                <span class="button-text">FOREST</span>
+              </button>
+              
+              <button class="menu-button" data-action="treedex" role="button">
+                <span class="button-icon">📚</span>
+                <span class="button-text">TREEDEX</span>
+              </button>
+              
+              <button class="menu-button" data-action="settings" role="button">
+                <span class="button-icon">⚙️</span>
+                <span class="button-text">SETTINGS</span>
+              </button>
+            </nav>
+            
+            <!-- Footer info -->
+            <div class="menu-footer">
+              <p class="version-text">v1.0.0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game View -->
+    <div id="game-view" class="spa-view">
+      <!-- Top Navigation Bar -->
+      <div class="top-bar">
+          <div class="logo-section">
+              <div class="title">TypeSprout</div>
+          </div>
+          <div class="nav-section">
+              <button class="nav-btn">About</button>
+              <button class="nav-btn">Settings</button>
+              <button class="nav-btn" id="inventory-btn">🎒 Inventory</button>
+          </div>
+      </div>
+
+      <!-- Main Game Container -->
+      <div class="game-container">
+          <!-- Left Game Panel -->
+          <div class="game-panel">
+              <!-- Difficulty Selection -->
+              <div class="difficulty-section">
+                  <div class="difficulty-buttons">
+                      <button class="difficulty-btn easy active" data-difficulty="easy">
+                          Easy
+                      </button>
+                      <button class="difficulty-btn intermediate" data-difficulty="intermediate">
+                          Intermediate
+                      </button>
+                      <button class="difficulty-btn hard" data-difficulty="hard">
+                          Hard
+                      </button>
+                      <button class="difficulty-btn hidden" data-difficulty="impossible">
+                          Impossible
+                      </button>
+                  </div>
+              </div>
+
+              <!-- Main Game Content with Side-by-Side Layout -->
+              <div class="game-content-wrapper">
+                  <!-- Left Side: Game Elements -->
+                  <div class="game-elements">
+                      <!-- Stats Section -->
+                      <div class="stats-section">
+                          <div class="stat">
+                              <div class="stat-value" id="timer">0:00</div>
+                              <div class="stat-label">Time</div>
+                          </div>
+                          <div class="stat">
+                              <div class="stat-value" id="wpm">0</div>
+                              <div class="stat-label">WPM</div>
+                          </div>
+                          <div class="stat">
+                              <div class="stat-value" id="placement">--</div>
+                              <div class="stat-label">Placement</div>
+                          </div>
+                      </div>
+
+                      <!-- Quote Display -->
+                      <div class="quote-section">
+                          <div class="quote-text" id="quote-display">
+                              Ready to test your typing skills? Select difficulty and start your race!
+                          </div>
+                          <div class="quote-author" id="quote-author"></div>
+                      </div>
+
+                      <!-- Typing Input -->
+                      <input type="text" class="typing-input" id="typing-input" placeholder="Type here during the race..." disabled>
+
+                      <!-- Control Buttons -->
+                      <div class="controls">
+                          <button class="control-btn start-btn" id="start-btn">Start Race</button>
+                          <button class="control-btn menu-btn" id="menu-btn">Main Menu</button>
+                      </div>
+                  </div>
+
+                  <!-- Right Side: Tree Growth Visualization -->
+                  <div class="tree-growth-container">
+                      <div class="tree-title">Tree Growth</div>
+                      <div class="tree-visualization">
+                          <!-- Tree visualization with dynamic sprites based on race progress -->
+                          <div class="tree-stage-container">
+                              <img id="tree-stage" src="../Main Game/Assets/common_oak_tree_sapling.png" alt="Sprout" class="tree-image">
+                              <div class="tree-stage-label">Sprout</div>
+                              <div class="tree-progress-text">Race Progress: 0%</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Right Animation Panel -->
+          <div class="animation-panel">
+              <div class="vertical-race-container">
+                  <div class="race-title">Live Race</div>
+                  <div class="vertical-racers">
+                      <div class="vertical-racer player-lane">
+                          <div class="racer-info">
+                              <span class="racer-name">Player 1 (You)</span>
+                              <span class="racer-wpm-display">0 WPM</span>
+                              <span class="racer-placement-display"></span>
+                          </div>
+                          <div class="falling-leaves-container">
+                              <div class="leaf-lane"></div>
+                          </div>
+                      </div>
+                      <div class="vertical-racer bot-lane">
+                          <div class="racer-info">
+                              <span class="racer-name">Player 2</span>
+                              <span class="racer-wpm-display">0 WPM</span>
+                              <span class="racer-placement-display"></span>
+                          </div>
+                          <div class="falling-leaves-container">
+                              <div class="leaf-lane"></div>
+                          </div>
+                      </div>
+                      <div class="vertical-racer bot-lane">
+                          <div class="racer-info">
+                              <span class="racer-name">Player 3</span>
+                              <span class="racer-wpm-display">0 WPM</span>
+                              <span class="racer-placement-display"></span>
+                          </div>
+                          <div class="falling-leaves-container">
+                              <div class="leaf-lane"></div>
+                          </div>
+                      </div>
+                      <div class="vertical-racer bot-lane">
+                          <div class="racer-info">
+                              <span class="racer-name">Player 4</span>
+                              <span class="racer-wpm-display">0 WPM</span>
+                              <span class="racer-placement-display"></span>
+                          </div>
+                          <div class="falling-leaves-container">
+                              <div class="leaf-lane"></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- Game Over Modal -->
+      <div class="game-over" id="game-over-modal">
+          <div class="game-over-content">
+              <div class="result-title" id="result-title">Race Complete!</div>
+              <div class="result-stats">
+                  <div><strong>Your Position:</strong> <span id="final-position">1st</span></div>
+                  <div><strong>Final WPM:</strong> <span id="final-wpm">0</span></div>
+                  <div><strong>Time:</strong> <span id="final-time">0:00</span></div>
+              </div>
+              <div class="reward-section" id="reward-section">
+                  <div><strong>Reward:</strong> <span id="reward-text">Keep trying!</span></div>
+              </div>
+              <button class="control-btn start-btn" onclick="closeGameOver()">Play Again</button>
+          </div>
+      </div>
+
+      <!-- Inventory Modal -->
+      <div class="inventory-modal" id="inventory-modal">
+          <div class="inventory-content">
+              <div class="inventory-title">🎒 Seed Inventory</div>
+              <div class="seed-inventory">
+                  <div class="seed-item common">
+                      <img src="../Main Game/Assets/common_seed.png" alt="Common Seed" class="seed-image">
+                      <div class="seed-name">Common Seeds</div>
+                      <div class="seed-count" id="common-count">0</div>
+                  </div>
+                  <div class="seed-item rare">
+                      <img src="../Main Game/Assets/rare_seed.png" alt="Rare Seed" class="seed-image">
+                      <div class="seed-name">Rare Seeds</div>
+                      <div class="seed-count" id="rare-count">0</div>
+                  </div>
+                  <div class="seed-item legendary">
+                      <img src="../Main Game/Assets/goated_seed.png" alt="Goated Seed" class="seed-image">
+                      <div class="seed-name">Goated Seeds</div>
+                      <div class="seed-count" id="legendary-count">0</div>
+                  </div>
+                  <div class="seed-item hidden">
+                      <img src="../Main Game/Assets/yggdrasil_seed.png" alt="??? Seed" class="seed-image">
+                      <div class="seed-name">???</div>
+                      <div class="seed-count" id="impossible-count">0</div>
+                  </div>
+              </div>
+              <button class="close-inventory" onclick="closeInventory()">Close</button>
+          </div>
+      </div>
+
+      <!-- Countdown Timer Modal -->
+      <div class="countdown-modal" id="countdown-modal">
+          <div class="countdown-content">
+              <div class="countdown-text" id="countdown-text">Finding players<span class="loading-dots"></span></div>
+              <div class="countdown-number" id="countdown-number" style="display: none;"></div>
+              <div class="countdown-subtext" id="countdown-subtext"></div>
+          </div>
+      </div>
+    </div>
+
+
+    <!-- Settings View -->
+    <div id="settings-view" class="spa-view">
+      <div class="page-container">
+        <div class="page-stage">
+          <!-- Background (consistent with main menu) -->
+          <div class="page-background"></div>
+          
+          <!-- Page Content -->
+          <div class="page-content">
+            <h1 class="page-title">⚙️ SETTINGS ⚙️</h1>
+            <p class="page-description">
+              Customize your Tree Typing experience
+            </p>
+            
+            <!-- Settings Controls Section -->
+            <div class="content-section">
+              <div class="settings-container">
+                
+                <!-- Volume Controls -->
+                <div class="settings-group">
+                  <h3 class="group-title">🔊 AUDIO SETTINGS</h3>
+                  
+                  <div class="control-item">
+                    <label for="master-volume" class="control-label">Master Volume</label>
+                    <div class="slider-container">
+                      <input type="range" id="master-volume" class="volume-slider" min="0" max="100" value="100">
+                      <div class="slider-value" id="master-volume-value">100%</div>
+                    </div>
+                  </div>
+                  
+                  <div class="control-item">
+                    <label for="music-volume" class="control-label">Music Volume</label>
+                    <div class="slider-container">
+                      <input type="range" id="music-volume" class="volume-slider" min="0" max="100" value="100">
+                      <div class="slider-value" id="music-volume-value">100%</div>
+                    </div>
+                  </div>
+                  
+                  <div class="control-item">
+                    <label for="sfx-volume" class="control-label">SFX Volume</label>
+                    <div class="slider-container">
+                      <input type="range" id="sfx-volume" class="volume-slider" min="0" max="100" value="100">
+                      <div class="slider-value" id="sfx-volume-value">100%</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Display Settings -->
+                <div class="settings-group">
+                  <h3 class="group-title">📺 DISPLAY SETTINGS</h3>
+                  
+                  <div class="control-item">
+                    <label for="fullscreen-toggle" class="control-label">Fullscreen Mode</label>
+                    <div class="toggle-container">
+                      <button id="fullscreen-toggle" class="toggle-button" role="switch" aria-checked="false">
+                        <span class="toggle-indicator"></span>
+                        <span class="toggle-text">OFF</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="page-nav">
+              <button class="page-button primary" id="reset-settings">
+                <span class="button-icon">🔄</span>
+                RESET TO DEFAULTS
+              </button>
+            </div>
+            
+            <!-- Back button -->
+            <div class="back-button-container">
+              <button class="page-button" onclick="navigateToView('menu')">
+                <span class="button-icon">🏠</span>
+                BACK TO MENU
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  
+  <!-- JavaScript for integrated views -->
+  <script src="../Main Game/script.js"></script>
+  <script src="settings.js"></script>
+  
+  <!-- SPA Styles -->
+  <style>
+    /* SPA View Management */
+    .spa-view {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+    }
+    
+    .spa-view.active {
+      display: block;
+      opacity: 1;
+    }
+    
+    .spa-view.fade-out {
+      opacity: 0;
+    }
+    
+    /* Ensure all views take full viewport */
+    #opening-view, #menu-view, #game-view, #forest-view, #treedex-view, #settings-view {
+      width: 100%;
+      height: 100vh;
+    }
+    
+    /* View-specific overrides */
+    #game-view, #forest-view, #treedex-view, #settings-view {
+      overflow-y: auto;
+    }
+    
+    /* Prevent background PNG flash during transitions only */
+    .spa-view .menu-background,
+    .spa-view .page-background {
+      transition: opacity 0.6s ease-in-out;
+      pointer-events: none;
+    }
+    
+    /* AGGRESSIVE: Hide ALL backgrounds completely during view transitions */
+    .spa-view.fade-out .menu-background,
+    .spa-view.fade-out .page-background,
+    .spa-view.fade-out .menu-container,
+    .spa-view.fade-out .page-container,
+    .spa-view.fade-out .menu-stage,
+    .spa-view.fade-out .page-stage {
+      opacity: 0 !important;
+      transition: none !important;
+      background: none !important;
+      background-image: none !important;
+      display: none !important;
+    }
+    
+    /* SMOOTH TRANSITION: Use menu-style background during transitions */
+    .spa-view.fade-out {
+      background: linear-gradient(180deg, #5d94f1 0%, #4a7bc8 100%) !important;
+    }
+    
+    .spa-view.fade-out::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('image/background.png') center / cover;
+      opacity: 0.3;
+      filter: blur(2px);
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    /* Ensure spa-container has menu-style background during transitions */
+    #spa-container {
+      background: linear-gradient(180deg, #5d94f1 0%, #4a7bc8 100%);
+    }
+    
+    /* Ensure transition background content is above the pseudo-element */
+    .spa-view.fade-out .start-prompt,
+    .spa-view.fade-out .menu-content,
+    .spa-view.fade-out .page-content {
+      position: relative;
+      z-index: 2;
+    }
+  </style>
+  
+  <!-- Audio System Integration -->
+  <link rel="stylesheet" href="../audio/AudioActivationOverlay.css">
+  <script src="../audio/AudioActivationOverlay.js"></script>
+  <script src="../audio/AudioManager.js"></script>
+  <script src="../audio/MusicManager.js"></script>
+  <script src="../audio/SFXManager.js"></script>
+  <script src="../audio/SettingsManager.js"></script>
+  <script src="../audio/init.js"></script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Activation Overlay Test - TypeSprout</title>
+    
+    <!-- Load audio system components -->
+    <script src="SettingsManager.js"></script>
+    <script src="SFXManager.js"></script>
+    <script src="MusicManager.js"></script>
+    <script src="AudioManager.js"></script>
+    <script src="AudioActivationOverlay.js"></script>
+    <link rel="stylesheet" href="AudioActivationOverlay.css">
+    
+    <style>
+        /* Test page styling */
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        body {
+            font-family: 'Press Start 2P', cursive, monospace;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(180deg, #5d94f1 0%, #4a7bc8 100%);
+            color: white;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #fff;
+            text-shadow: 2px 2px 0 rgba(43, 74, 128, 0.5);
+        }
+        
+        .test-section {
+            background: rgba(255, 255, 255, 0.95);
+            color: #2b4a80;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #2b4a80;
+        }
+        
+        .test-button {
+            background: linear-gradient(180deg, #6a9628 0%, #5a7f20 100%);
+            border: 3px solid #4a6b1a;
+            color: white;
+            padding: 12px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 12px;
+            transition: all 0.15s ease;
+        }
+        
+        .test-button:hover {
+            background: linear-gradient(180deg, #7aab38 0%, #6a9628 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 0 #4a6b1a;
+        }
+        
+        .test-button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+        
+        .status {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #4a6b1a;
+            font-size: 10px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .warning {
+            background: rgba(255, 165, 0, 0.2);
+            border-left-color: orange;
+        }
+        
+        .error {
+            background: rgba(255, 0, 0, 0.2);
+            border-left-color: red;
+        }
+        
+        .success {
+            background: rgba(0, 255, 0, 0.2);
+            border-left-color: green;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .info-item {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 8px;
+            font-size: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .test-container {
+                padding: 15px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔊 Audio Activation Overlay Test</h1>
+        
+        <div class="test-section">
+            <h3>System Status</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>AudioManager:</strong> <span id="audio-manager-status">Not initialized</span>
+                </div>
+                <div class="info-item">
+                    <strong>Overlay Available:</strong> <span id="overlay-available">Checking...</span>
+                </div>
+                <div class="info-item">
+                    <strong>Audio Activated:</strong> <span id="audio-activated">No</span>
+                </div>
+                <div class="info-item">
+                    <strong>Current Section:</strong> <span id="current-section">Unknown</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Test Controls</h3>
+            <button class="test-button" onclick="showOverlay()">🔊 Show Overlay</button>
+            <button class="test-button" onclick="forceShowOverlay()">🔄 Force Show Overlay</button>
+            <button class="test-button" onclick="resetActivation()">🚫 Reset Activation</button>
+            <button class="test-button" onclick="testSectionTransition('title_screen')">🎵 Test Title Music</button>
+            <button class="test-button" onclick="testSectionTransition('battle')">⚔️ Test Battle Music</button>
+            <button class="test-button" onclick="checkSystemStatus()">📊 Update Status</button>
+        </div>
+        
+        <div class="test-section">
+            <h3>Console Log</h3>
+            <div id="console-log" class="status"></div>
+            <button class="test-button" onclick="clearConsoleLog()">🗑️ Clear Log</button>
+        </div>
+        
+        <div class="test-section">
+            <h3>Test Instructions</h3>
+            <ol style="font-size: 10px; line-height: 1.4; padding-left: 20px;">
+                <li><strong>Initial Load:</strong> Overlay should appear automatically if audio not activated</li>
+                <li><strong>Click Overlay Button:</strong> Should activate audio and start music</li>
+                <li><strong>Reload Page:</strong> Overlay should NOT appear again (remembered activation)</li>
+                <li><strong>Reset & Test:</strong> Click "Reset Activation" then reload to test again</li>
+                <li><strong>Cross-Browser:</strong> Test in Chrome, Firefox, Safari, and mobile browsers</li>
+                <li><strong>Mobile Test:</strong> Ensure overlay works on touch devices</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        let audioManager = null;
+        let consoleLog = [];
+        
+        // Override console.log to capture logs
+        const originalLog = console.log;
+        const originalWarn = console.warn;
+        const originalError = console.error;
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addToConsoleLog('LOG', args.join(' '));
+        };
+        
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            addToConsoleLog('WARN', args.join(' '));
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            addToConsoleLog('ERROR', args.join(' '));
+        };
+        
+        function addToConsoleLog(level, message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${level}: ${message}`;
+            consoleLog.push(logEntry);
+            
+            // Keep only last 50 entries
+            if (consoleLog.length > 50) {
+                consoleLog = consoleLog.slice(-50);
+            }
+            
+            updateConsoleDisplay();
+        }
+        
+        function updateConsoleDisplay() {
+            const logElement = document.getElementById('console-log');
+            logElement.textContent = consoleLog.join('\n');
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+        
+        function clearConsoleLog() {
+            consoleLog = [];
+            updateConsoleDisplay();
+        }
+        
+        // Initialize audio system
+        async function initializeAudioSystem() {
+            try {
+                console.log('🔊 Starting audio system initialization...');
+                audioManager = AudioManager.getInstance();
+                await audioManager.initialize();
+                
+                updateSystemStatus();
+                console.log('✅ Audio system initialized successfully');
+            } catch (error) {
+                console.error('❌ Failed to initialize audio system:', error);
+            }
+        }
+        
+        function updateSystemStatus() {
+            document.getElementById('audio-manager-status').textContent = 
+                audioManager ? (audioManager.isInitialized ? 'Initialized' : 'Not initialized') : 'Not available';
+                
+            document.getElementById('overlay-available').textContent = 
+                audioManager && audioManager.activationOverlay ? 'Yes' : 'No';
+                
+            document.getElementById('audio-activated').textContent = 
+                audioManager && audioManager.isAudioActivated ? 'Yes' : 'No';
+                
+            document.getElementById('current-section').textContent = 
+                audioManager ? audioManager.currentSection : 'Unknown';
+        }
+        
+        function showOverlay() {
+            if (audioManager && audioManager.activationOverlay) {
+                const shown = audioManager.activationOverlay.show();
+                console.log(shown ? '🔊 Overlay shown' : '🔊 Overlay not shown (already activated)');
+            } else {
+                console.error('❌ AudioManager or overlay not available');
+            }
+            updateSystemStatus();
+        }
+        
+        function forceShowOverlay() {
+            if (audioManager && audioManager.activationOverlay) {
+                audioManager.activationOverlay.forceShow();
+                console.log('🔊 Overlay force shown');
+            } else {
+                console.error('❌ AudioManager or overlay not available');
+            }
+            updateSystemStatus();
+        }
+        
+        function resetActivation() {
+            if (audioManager && audioManager.activationOverlay) {
+                audioManager.activationOverlay.reset();
+                audioManager.isAudioActivated = false;
+                console.log('🔊 Activation status reset');
+            } else {
+                console.error('❌ AudioManager or overlay not available');
+            }
+            updateSystemStatus();
+        }
+        
+        function testSectionTransition(section) {
+            if (audioManager) {
+                audioManager.handleSectionChange(section);
+                console.log(`🎵 Section transition to: ${section}`);
+            } else {
+                console.error('❌ AudioManager not available');
+            }
+            updateSystemStatus();
+        }
+        
+        function checkSystemStatus() {
+            console.log('📊 System Status Check:');
+            if (audioManager) {
+                console.log(`  - Initialized: ${audioManager.isInitialized}`);
+                console.log(`  - Audio Activated: ${audioManager.isAudioActivated}`);
+                console.log(`  - Current Section: ${audioManager.currentSection}`);
+                console.log(`  - Is Coordinator: ${audioManager.isCoordinator}`);
+                console.log(`  - Has Overlay: ${!!audioManager.activationOverlay}`);
+                
+                if (audioManager.musicManager) {
+                    const musicInfo = audioManager.musicManager.getCurrentInfo();
+                    console.log(`  - Music Status: ${JSON.stringify(musicInfo, null, 2)}`);
+                } else {
+                    console.log('  - Music Manager: Not available');
+                }
+            } else {
+                console.log('  - AudioManager: Not available');
+            }
+            updateSystemStatus();
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                initializeAudioSystem();
+                
+                // Update status every 2 seconds
+                setInterval(updateSystemStatus, 2000);
+            }, 100);
+        });
+        
+        // Check initial status
+        document.getElementById('overlay-available').textContent = 
+            typeof AudioActivationOverlay !== 'undefined' ? 'Yes' : 'No';
+            
+        console.log('🧪 Audio Activation Overlay Test Page Ready');
+    </script>
+</body>
+</html>

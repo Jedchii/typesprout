@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeSprout Audio System Test</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #2d5a27, #4a7c59);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1, h2 {
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .control-group {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .control-group label {
+            font-weight: bold;
+            min-width: 120px;
+        }
+        
+        .control-group input[type="range"] {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .control-group .value-display {
+            min-width: 50px;
+            text-align: right;
+            font-weight: bold;
+        }
+        
+        button {
+            background: linear-gradient(145deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        button:hover {
+            background: linear-gradient(145deg, #45a049, #4CAF50);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .page-button {
+            background: linear-gradient(145deg, #2196F3, #0b7dda);
+        }
+        
+        .page-button:hover {
+            background: linear-gradient(145deg, #0b7dda, #2196F3);
+        }
+        
+        .menu-button {
+            background: linear-gradient(145deg, #FF9800, #f57c00);
+        }
+        
+        .menu-button:hover {
+            background: linear-gradient(145deg, #f57c00, #FF9800);
+        }
+        
+        .status-display {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .section-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+        
+        .log-container {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 8px;
+            height: 200px;
+            overflow-y: scroll;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            margin: 15px 0;
+            border: 2px solid #333;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 30px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #4CAF50;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+    </style>
+</head>
+<body>
+    <div class="section-indicator" id="sectionIndicator">
+        🎵 Section: <span id="currentSection">Loading...</span>
+    </div>
+    
+    <div class="container">
+        <h1>🎵 TypeSprout Audio System Test 🎵</h1>
+        
+        <!-- Status Display -->
+        <div class="test-section">
+            <h2>📊 System Status</h2>
+            <div class="status-display" id="statusDisplay">Loading audio system...</div>
+            <button onclick="updateStatus()">Refresh Status</button>
+            <button onclick="clearLogs()">Clear Logs</button>
+        </div>
+        
+        <!-- Volume Controls -->
+        <div class="test-section">
+            <h2>🔊 Volume Controls</h2>
+            
+            <div class="control-group">
+                <label>Master Volume:</label>
+                <input type="range" id="masterVolume" min="0" max="100" value="100">
+                <span class="value-display" id="masterVolumeValue">100%</span>
+            </div>
+            
+            <div class="control-group">
+                <label>Music Volume:</label>
+                <input type="range" id="musicVolume" min="0" max="100" value="100">
+                <span class="value-display" id="musicVolumeValue">100%</span>
+            </div>
+            
+            <div class="control-group">
+                <label>SFX Volume:</label>
+                <input type="range" id="sfxVolume" min="0" max="100" value="100">
+                <span class="value-display" id="sfxVolumeValue">100%</span>
+            </div>
+            
+            <div class="control-group">
+                <label>Audio Enabled:</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="audioToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Section Testing -->
+        <div class="test-section">
+            <h2>🎶 Music Section Testing</h2>
+            <p>Test transitions between different game sections:</p>
+            
+            <div class="button-grid">
+                <button onclick="testSection('title_screen')">🏠 Title Screen Music</button>
+                <button onclick="testSection('battle')">⚔️ Battle Music</button>
+                <button onclick="testCrossfade()">🔄 Test Crossfade</button>
+                <button onclick="pauseMusic()">⏸️ Pause Music</button>
+                <button onclick="resumeMusic()">▶️ Resume Music</button>
+            </div>
+        </div>
+        
+        <!-- Button Sound Testing -->
+        <div class="test-section">
+            <h2>🔊 Button Sound Testing</h2>
+            <p>Click these buttons to test universal button sound detection:</p>
+            
+            <div class="button-grid">
+                <button class="menu-button">Menu Button</button>
+                <button class="page-button">Page Button</button>
+                <button>Generic Button</button>
+                <button class="btn">Class: .btn</button>
+                <button role="button">Role Button</button>
+                <div style="cursor: pointer; background: #666; padding: 10px; border-radius: 4px; display: inline-block;" onclick="void(0)">Clickable Div</div>
+            </div>
+            
+            <div class="control-group">
+                <button onclick="manualButtonSound()">🔊 Manual Button Sound Test</button>
+                <button onclick="rapidButtonTest()">⚡ Rapid Click Test</button>
+            </div>
+        </div>
+        
+        <!-- Manual Testing -->
+        <div class="test-section">
+            <h2>🧪 Manual Testing</h2>
+            <p>Advanced testing controls for developers:</p>
+            
+            <div class="button-grid">
+                <button onclick="loadTestScenario('menu')">📱 Load Menu Scenario</button>
+                <button onclick="loadTestScenario('game')">🎮 Load Game Scenario</button>
+                <button onclick="testErrorHandling()">❌ Test Error Handling</button>
+                <button onclick="stressTest()">🚀 Stress Test</button>
+                <button onclick="resetAudioSystem()">🔄 Reset System</button>
+            </div>
+        </div>
+        
+        <!-- Console Log Display -->
+        <div class="test-section">
+            <h2>📝 System Logs</h2>
+            <div class="log-container" id="logContainer"></div>
+        </div>
+        
+        <!-- Keyboard Shortcuts Info -->
+        <div class="test-section">
+            <h2>⌨️ Keyboard Shortcuts</h2>
+            <ul>
+                <li><strong>Ctrl/Cmd + M</strong> - Toggle audio</li>
+                <li><strong>Ctrl/Cmd + Plus</strong> - Increase master volume</li>
+                <li><strong>Ctrl/Cmd + Minus</strong> - Decrease master volume</li>
+                <li><strong>Ctrl + Shift + A</strong> - Show debug info</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Load Audio System -->
+    <script src="AudioManager.js"></script>
+    <script src="MusicManager.js"></script>
+    <script src="SFXManager.js"></script>
+    <script src="SettingsManager.js"></script>
+    <script src="init.js"></script>
+    
+    <script>
+        // Test-specific JavaScript
+        let audioManager = null;
+        let logMessages = [];
+        
+        // Override console methods to capture logs
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        
+        console.log = function(...args) {
+            logMessages.push({ type: 'log', message: args.join(' '), timestamp: new Date().toLocaleTimeString() });
+            updateLogDisplay();
+            originalLog.apply(console, args);
+        };
+        
+        console.error = function(...args) {
+            logMessages.push({ type: 'error', message: args.join(' '), timestamp: new Date().toLocaleTimeString() });
+            updateLogDisplay();
+            originalError.apply(console, args);
+        };
+        
+        console.warn = function(...args) {
+            logMessages.push({ type: 'warn', message: args.join(' '), timestamp: new Date().toLocaleTimeString() });
+            updateLogDisplay();
+            originalWarn.apply(console, args);
+        };
+        
+        // Wait for audio system to initialize
+        setTimeout(() => {
+            audioManager = window.TypeSproutAudio;
+            if (audioManager) {
+                setupVolumeControls();
+                updateStatus();
+                updateSectionIndicator();
+            }
+        }, 2000);
+        
+        // Setup volume controls
+        function setupVolumeControls() {
+            const masterSlider = document.getElementById('masterVolume');
+            const musicSlider = document.getElementById('musicVolume');
+            const sfxSlider = document.getElementById('sfxVolume');
+            const audioToggle = document.getElementById('audioToggle');
+            
+            // Setup volume sliders
+            [
+                { slider: masterSlider, type: 'master', display: 'masterVolumeValue' },
+                { slider: musicSlider, type: 'music', display: 'musicVolumeValue' },
+                { slider: sfxSlider, type: 'sfx', display: 'sfxVolumeValue' }
+            ].forEach(({ slider, type, display }) => {
+                slider.addEventListener('input', (e) => {
+                    const value = e.target.value / 100;
+                    document.getElementById(display).textContent = e.target.value + '%';
+                    
+                    if (audioManager) {
+                        switch (type) {
+                            case 'master':
+                                audioManager.setMasterVolume(value);
+                                break;
+                            case 'music':
+                                audioManager.setMusicVolume(value);
+                                break;
+                            case 'sfx':
+                                audioManager.setSFXVolume(value);
+                                break;
+                        }
+                    }
+                });
+            });
+            
+            // Setup audio toggle
+            audioToggle.addEventListener('change', (e) => {
+                if (audioManager) {
+                    audioManager.toggleAudio(e.target.checked);
+                }
+            });
+        }
+        
+        // Test functions
+        function testSection(section) {
+            if (audioManager) {
+                console.log(`🧪 Testing section transition to: ${section}`);
+                audioManager.handleSectionChange(section);
+                updateSectionIndicator();
+            }
+        }
+        
+        function testCrossfade() {
+            if (audioManager) {
+                const currentSection = audioManager.currentSection;
+                const newSection = currentSection === 'title_screen' ? 'battle' : 'title_screen';
+                console.log(`🧪 Testing crossfade from ${currentSection} to ${newSection}`);
+                testSection(newSection);
+            }
+        }
+        
+        function pauseMusic() {
+            if (audioManager && audioManager.musicManager) {
+                audioManager.musicManager.pauseAll();
+                console.log('⏸️ Music paused');
+            }
+        }
+        
+        function resumeMusic() {
+            if (audioManager && audioManager.musicManager) {
+                audioManager.musicManager.resumeCurrent();
+                console.log('▶️ Music resumed');
+            }
+        }
+        
+        function manualButtonSound() {
+            if (audioManager) {
+                audioManager.playButtonSound();
+                console.log('🔊 Manual button sound triggered');
+            }
+        }
+        
+        function rapidButtonTest() {
+            console.log('⚡ Starting rapid button test...');
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => manualButtonSound(), i * 100);
+            }
+        }
+        
+        function loadTestScenario(scenario) {
+            console.log(`📱 Loading ${scenario} test scenario`);
+            const section = scenario === 'menu' ? 'title_screen' : 'battle';
+            testSection(section);
+        }
+        
+        function testErrorHandling() {
+            console.log('❌ Testing error handling...');
+            if (audioManager) {
+                // Test invalid section
+                audioManager.handleSectionChange('invalid_section');
+            }
+        }
+        
+        function stressTest() {
+            console.log('🚀 Starting stress test...');
+            let count = 0;
+            const interval = setInterval(() => {
+                manualButtonSound();
+                if (++count >= 10) {
+                    clearInterval(interval);
+                    console.log('🚀 Stress test completed');
+                }
+            }, 50);
+        }
+        
+        function resetAudioSystem() {
+            if (audioManager) {
+                console.log('🔄 Resetting audio system...');
+                audioManager.setMasterVolume(1.0);
+                audioManager.setMusicVolume(1.0);
+                audioManager.setSFXVolume(1.0);
+                audioManager.toggleAudio(true);
+                updateStatus();
+            }
+        }
+        
+        function updateStatus() {
+            const statusElement = document.getElementById('statusDisplay');
+            if (!audioManager) {
+                statusElement.textContent = 'Audio system not initialized';
+                return;
+            }
+            
+            const volumes = audioManager.getVolumes();
+            const musicInfo = audioManager.musicManager ? audioManager.musicManager.getCurrentInfo() : null;
+            const sfxInfo = audioManager.sfxManager ? audioManager.sfxManager.getCurrentInfo() : null;
+            
+            statusElement.textContent = `🎵 AUDIO SYSTEM STATUS 🎵
+
+🔧 Core System:
+  - Initialized: ${audioManager.isInitialized}
+  - Current Section: ${audioManager.currentSection}
+  - Audio Enabled: ${volumes.enabled}
+
+🔊 Volume Levels:
+  - Master: ${Math.round(volumes.master * 100)}%
+  - Music: ${Math.round(volumes.music * 100)}%
+  - SFX: ${Math.round(volumes.sfx * 100)}%
+
+🎶 Music Manager:
+  - Playing: ${musicInfo ? musicInfo.isPlaying : 'N/A'}
+  - Transitioning: ${musicInfo ? musicInfo.isTransitioning : 'N/A'}
+  - Current Time: ${musicInfo ? Math.round(musicInfo.currentTime) : 'N/A'}s
+  - Section: ${musicInfo ? musicInfo.section : 'N/A'}
+
+🔊 SFX Manager:
+  - Volume: ${sfxInfo ? Math.round(sfxInfo.volume * 100) : 'N/A'}%
+  - Active Sounds: ${sfxInfo ? sfxInfo.activeSounds : 'N/A'}/${sfxInfo ? sfxInfo.poolSize : 'N/A'}
+  - Button Selectors: ${sfxInfo ? sfxInfo.buttonSelectors : 'N/A'}
+
+⏱️ Last Updated: ${new Date().toLocaleTimeString()}`;
+        }
+        
+        function updateSectionIndicator() {
+            const indicator = document.getElementById('currentSection');
+            if (audioManager) {
+                indicator.textContent = audioManager.currentSection.replace('_', ' ').toUpperCase();
+            }
+        }
+        
+        function updateLogDisplay() {
+            const logContainer = document.getElementById('logContainer');
+            const maxLogs = 50;
+            
+            // Keep only recent logs
+            if (logMessages.length > maxLogs) {
+                logMessages = logMessages.slice(-maxLogs);
+            }
+            
+            logContainer.innerHTML = logMessages.map(log => {
+                const color = log.type === 'error' ? '#ff6b6b' : 
+                             log.type === 'warn' ? '#ffd93d' : '#6bcf7f';
+                return `<div style="color: ${color};">[${log.timestamp}] ${log.message}</div>`;
+            }).join('');
+            
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+        
+        function clearLogs() {
+            logMessages = [];
+            updateLogDisplay();
+        }
+        
+        // Auto-refresh status every 5 seconds
+        setInterval(updateStatus, 5000);
+        
+        // Log test page ready
+        setTimeout(() => {
+            console.log('🧪 Audio System Test Page Ready!');
+            console.log('📋 Available test functions:', Object.keys(window).filter(key => 
+                typeof window[key] === 'function' && 
+                (key.startsWith('test') || key.includes('Test') || key.includes('Status'))
+            ));
+        }, 3000);
+    </script>
+</body>
+</html>

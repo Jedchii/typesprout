@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Iso Farm Game</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Back to Main Menu button -->
+  <div id="mainMenuButton">
+    <button class="menu-nav-button" onclick="window.location.href='../Main Menu/mainmenu.html'">
+      <span class="button-icon">🏠</span>
+      <span class="button-text">MAIN MENU</span>
+    </button>
+  </div>
+
+  <!-- Bottom inventory (collapsible trapezoid) -->
+  <div id="inventoryBar" class="collapsed" aria-expanded="false">
+    <button id="invToggle" title="Toggle inventory">
+      <img src="assets/arrow.png" alt="Toggle inventory" class="arrow-sprite" />
+    </button>
+    <div id="inventoryPanel" class="hidden">
+      <h3>Inventory</h3>
+      <div id="inventoryList" class="inventory-list"></div>
+    </div>
+  </div>
+
+  <!-- Canvas -->
+  <canvas id="gameCanvas"></canvas>
+
+  <!-- Right cheat panel -->
+  <div id="cheatPanel">
+    <h3>Cheat Menu (temp)</h3>
+    <button id="addSeedBtn">+1 Oak Seed</button>
+    <button id="removeSeedBtn">-1 Oak Seed</button>
+    <button id="addYggdrasilSeedBtn">+1 Yggdrasil Seed</button>
+    <button id="removeYggdrasilSeedBtn">-1 Yggdrasil Seed</button>
+    <button id="addWillowSeedBtn">+1 Willow Seed</button>
+    <button id="removeWillowSeedBtn">-1 Willow Seed</button>
+    <button id="addMapleSeedBtn">+1 Maple Seed</button>
+    <button id="removeMapleSeedBtn">-1 Maple Seed</button>
+    <button id="addSpruceSeedBtn">+1 Spruce Seed</button>
+    <button id="removeSpruceSeedBtn">-1 Spruce Seed</button>
+    <button id="clearSaveBtn">Clear Save</button>
+    <button id="removeTreeBtn">Remove Tree Mode: OFF</button>
+  </div>
+
+  <script src="script.js"></script>
+  
+  <!-- Audio System Integration -->
+  <link rel="stylesheet" href="../audio/AudioActivationOverlay.css">
+  <script src="../audio/AudioActivationOverlay.js"></script>
+  <script src="../audio/AudioManager.js"></script>
+  <script src="../audio/MusicManager.js"></script>
+  <script src="../audio/SFXManager.js"></script>
+  <script src="../audio/SettingsManager.js"></script>
+  <script src="../audio/init.js"></script>
+</body>
+</html>

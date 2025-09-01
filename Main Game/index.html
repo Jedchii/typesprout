@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeSprout</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <div class="top-bar">
+        <div class="logo-section">
+            <div class="title">TypeSprout</div>
+        </div>
+        <div class="nav-section">
+            <button class="nav-btn">About</button>
+            <button class="nav-btn">Settings</button>
+            <button class="nav-btn" id="inventory-btn">🎒 Inventory</button>
+        </div>
+    </div>
+
+    <!-- Main Game Container -->
+    <div class="game-container">
+        <!-- Left Game Panel -->
+        <div class="game-panel">
+            <!-- Difficulty Selection -->
+            <div class="difficulty-section">
+                <div class="difficulty-buttons">
+                    <button class="difficulty-btn easy active" data-difficulty="easy">
+                        Easy
+                    </button>
+                    <button class="difficulty-btn intermediate" data-difficulty="intermediate">
+                        Intermediate
+                    </button>
+                    <button class="difficulty-btn hard" data-difficulty="hard">
+                        Hard
+                    </button>
+                    <button class="difficulty-btn hidden" data-difficulty="impossible">
+                        Impossible
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Main Game Content with Side-by-Side Layout -->
+            <div class="game-content-wrapper">
+                <!-- Left Side: Game Elements -->
+                <div class="game-elements">
+                    <!-- Stats Section -->
+                    <div class="stats-section">
+                        <div class="stat">
+                            <div class="stat-value" id="timer">0:00</div>
+                            <div class="stat-label">Time</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="wpm">0</div>
+                            <div class="stat-label">WPM</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="placement">--</div>
+                            <div class="stat-label">Placement</div>
+                        </div>
+                    </div>
+
+                    <!-- Quote Display -->
+                    <div class="quote-section">
+                        <div class="quote-text" id="quote-display">
+                            Ready to test your typing skills? Select difficulty and start your race!
+                        </div>
+                        <div class="quote-author" id="quote-author"></div>
+                    </div>
+
+                    <!-- Typing Input -->
+                    <input type="text" class="typing-input" id="typing-input" placeholder="Type here during the race..." disabled>
+
+                    <!-- Control Buttons -->
+                    <div class="controls">
+                        <button class="control-btn start-btn" id="start-btn">Start Race</button>
+                        <button class="control-btn menu-btn" id="menu-btn">Main Menu</button>
+                    </div>
+                </div>
+
+                <!-- Right Side: Tree Growth Visualization -->
+                <div class="tree-growth-container">
+                    <div class="tree-title">Tree Growth</div>
+                    <div class="tree-visualization">
+                        <!-- Tree visualization with dynamic sprites based on race progress -->
+                        <div class="tree-stage-container">
+                            <img id="tree-stage" src="Assets/common_oak_tree_sapling.png" alt="Sprout" class="tree-image">
+                            <div class="tree-stage-label">Sprout</div>
+                            <div class="tree-progress-text">Race Progress: 0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Animation Panel -->
+        <div class="animation-panel">
+            <div class="vertical-race-container">
+                <div class="race-title">Live Race</div>
+                <div class="vertical-racers">
+                    <div class="vertical-racer player-lane">
+                        <div class="racer-info">
+                            <span class="racer-name">Player 1 (You)</span>
+                            <span class="racer-wpm-display">0 WPM</span>
+                            <span class="racer-placement-display"></span>
+                        </div>
+                        <div class="falling-leaves-container">
+                            <div class="leaf-lane"></div>
+                        </div>
+                    </div>
+                    <div class="vertical-racer bot-lane">
+                        <div class="racer-info">
+                            <span class="racer-name">Player 2</span>
+                            <span class="racer-wpm-display">0 WPM</span>
+                            <span class="racer-placement-display"></span>
+                        </div>
+                        <div class="falling-leaves-container">
+                            <div class="leaf-lane"></div>
+                        </div>
+                    </div>
+                    <div class="vertical-racer bot-lane">
+                        <div class="racer-info">
+                            <span class="racer-name">Player 3</span>
+                            <span class="racer-wpm-display">0 WPM</span>
+                            <span class="racer-placement-display"></span>
+                        </div>
+                        <div class="falling-leaves-container">
+                            <div class="leaf-lane"></div>
+                        </div>
+                    </div>
+                    <div class="vertical-racer bot-lane">
+                        <div class="racer-info">
+                            <span class="racer-name">Player 4</span>
+                            <span class="racer-wpm-display">0 WPM</span>
+                            <span class="racer-placement-display"></span>
+                        </div>
+                        <div class="falling-leaves-container">
+                            <div class="leaf-lane"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div class="game-over" id="game-over-modal">
+        <div class="game-over-content">
+            <div class="result-title" id="result-title">Race Complete!</div>
+            <div class="result-stats">
+                <div><strong>Your Position:</strong> <span id="final-position">1st</span></div>
+                <div><strong>Final WPM:</strong> <span id="final-wpm">0</span></div>
+                <div><strong>Time:</strong> <span id="final-time">0:00</span></div>
+            </div>
+            <div class="reward-section" id="reward-section">
+                <div><strong>Reward:</strong> <span id="reward-text">Keep trying!</span></div>
+            </div>
+            <button class="control-btn start-btn" onclick="closeGameOver()">Play Again</button>
+        </div>
+    </div>
+
+    <!-- Inventory Modal -->
+    <div class="inventory-modal" id="inventory-modal">
+        <div class="inventory-content">
+            <div class="inventory-title">🎒 Seed Inventory</div>
+            <div class="seed-inventory">
+                <div class="seed-item common">
+                    <img src="Assets/common_seed.png" alt="Common Seed" class="seed-image">
+                    <div class="seed-name">Common Seeds</div>
+                    <div class="seed-count" id="common-count">0</div>
+                </div>
+                <div class="seed-item rare">
+                    <img src="Assets/rare_seed.png" alt="Rare Seed" class="seed-image">
+                    <div class="seed-name">Rare Seeds</div>
+                    <div class="seed-count" id="rare-count">0</div>
+                </div>
+                <div class="seed-item legendary">
+                    <img src="Assets/goated_seed.png" alt="Goated Seed" class="seed-image">
+                    <div class="seed-name">Goated Seeds</div>
+                    <div class="seed-count" id="legendary-count">0</div>
+                </div>
+                <div class="seed-item hidden">
+                    <img src="Assets/yggdrasil_seed.png" alt="??? Seed" class="seed-image">
+                    <div class="seed-name">???</div>
+                    <div class="seed-count" id="impossible-count">0</div>
+                </div>
+            </div>
+            <button class="close-inventory" onclick="closeInventory()">Close</button>
+        </div>
+    </div>
+
+    <!-- Countdown Timer Modal -->
+    <div class="countdown-modal" id="countdown-modal">
+        <div class="countdown-content">
+            <div class="countdown-text" id="countdown-text">Finding players<span class="loading-dots"></span></div>
+            <div class="countdown-number" id="countdown-number" style="display: none;"></div>
+            <div class="countdown-subtext" id="countdown-subtext"></div>
+        </div>
+    </div>
+
+    <!-- Audio System Integration -->
+    <link rel="stylesheet" href="../audio/AudioActivationOverlay.css">
+    <script src="../audio/AudioActivationOverlay.js"></script>
+    <script src="../audio/AudioManager.js"></script>
+    <script src="../audio/MusicManager.js"></script>
+    <script src="../audio/SFXManager.js"></script>
+    <script src="../audio/SettingsManager.js"></script>
+    <script src="../audio/init.js"></script>
+</body>
+</html>

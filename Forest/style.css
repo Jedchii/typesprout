@@ -1,0 +1,402 @@
+:root{
+  --bg: #eef9ee;
+  --panel: #f5f5f5;
+  --accent: #5d94f1;
+  --accent-dark: #4a7bc8;
+  --accent-darker: #2b4a80;
+  --muted: #666;
+  --inventory-bg: rgba(255, 255, 255, 0.9);
+}
+
+/* Layout */
+html,body{
+  height:100%;
+  margin:0;
+  font-family:'Press Start 2P', cursive, monospace;
+  background:var(--bg);
+  text-rendering: geometricPrecision;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Bottom Inventory Bar (Rectangle) */
+#inventoryBar{
+  position: fixed;
+  left: 20px;
+  bottom: 0;
+  width: 120px; /* collapsed width */
+  height: 40px; /* collapsed height */
+  background: var(--inventory-bg);
+  border: 3px solid var(--accent-darker);
+  border-bottom: none;
+  box-sizing: border-box;
+  transition: all 300ms ease;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  /* Pixel-perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  text-rendering: geometricPrecision;
+  
+  /* Block shadow effect */
+  box-shadow: 0 -4px 0 var(--accent-darker);
+}
+
+#inventoryBar.expanded{
+  width: 45vw;
+  max-width: 500px;
+  height: 475px;
+  box-shadow: 0 -6px 0 var(--accent-darker);
+}
+
+#invToggle{
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 20px;
+  border: 2px solid var(--accent-darker);
+  background: var(--inventory-bg);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 21;
+  
+  /* Pixel-perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  text-rendering: geometricPrecision;
+  
+  /* Remove default button styles */
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  /* Block shadow */
+  box-shadow: 0 2px 0 var(--accent-darker);
+}
+
+/* Adjust arrow position when expanded to avoid overlapping with text */
+#inventoryBar.expanded #invToggle {
+  top: -12px;
+}
+
+#invToggle:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 var(--accent-darker);
+}
+
+#invToggle:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 0 var(--accent-darker);
+}
+
+/* Arrow sprite styling */
+.arrow-sprite {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.15s ease;
+  
+  /* Pixel-perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Arrow sprite states - rotate based on inventory state */
+#inventoryBar.collapsed .arrow-sprite {
+  transform: rotate(0deg); /* Arrow pointing up when collapsed */
+}
+
+#inventoryBar.expanded .arrow-sprite {
+  transform: rotate(180deg); /* Arrow pointing down when expanded */
+}
+
+/* Inventory panel content */
+#inventoryPanel{
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+  padding: 15px 20px 20px 20px;
+  box-sizing: border-box;
+}
+#inventoryPanel.hidden{ display: none; }
+#inventoryPanel h3{
+  margin: 0 0 15px 0;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  color: var(--accent-darker);
+  text-align: center;
+  text-rendering: geometricPrecision;
+}
+
+.inventory-list{
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  justify-content: center;
+  
+  /* Custom scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--inventory-bg);
+}
+
+.inventory-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.inventory-list::-webkit-scrollbar-track {
+  background: var(--inventory-bg);
+  border: 2px solid var(--accent-darker);
+}
+
+.inventory-list::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border: 1px solid var(--accent-darker);
+}
+
+.inventory-list::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-dark);
+}
+
+.inv-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  width: 80px;
+  height: 70px;
+  background: var(--inventory-bg);
+  border: 2px solid var(--accent-darker);
+  border-radius: 0;
+  box-shadow: 0 3px 0 var(--accent-darker);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  cursor: grab;
+  text-align: center;
+  
+  /* Pixel-perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  text-rendering: geometricPrecision;
+}
+
+.inv-item:hover, .inv-item:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 var(--accent-darker);
+  outline: none;
+}
+
+.inv-item img{
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  margin-bottom: 4px;
+  
+  /* Pixel-perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.inv-item .name{
+  font-family: 'Press Start 2P', cursive;
+  font-size: 7px;
+  color: var(--accent-darker);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin-bottom: 2px;
+  text-rendering: geometricPrecision;
+}
+
+.inv-item .qty{
+  font-family: 'Press Start 2P', cursive;
+  font-weight: normal;
+  color: var(--accent);
+  font-size: 9px;
+  text-rendering: geometricPrecision;
+}
+
+/* Visual feedback for dragging */
+.inv-item.dragging {
+  border: 3px solid var(--accent);
+  box-shadow: 0 0 16px rgba(93, 148, 241, 0.8);
+  transform: scale(1.05);
+  z-index: 100;
+}
+
+/* Canvas fills remaining area above bottom inventory and beside right panel */
+#gameCanvas{
+  position: absolute;
+  left: 160px; /* reserve left space for inventory (120px + 40px buffer) */
+  right: 180px; /* reserve right for cheat panel */
+  top: 0;
+  bottom: 40px;
+  width: auto;
+  height: auto;
+  display: block;
+  background: var(--bg);
+  transition: all 300ms ease; /* Smooth transition when inventory expands */
+}
+
+/* Canvas adjustments when inventory is expanded - JavaScript will handle left positioning dynamically */
+#inventoryBar.expanded ~ #gameCanvas {
+  bottom: 150px;
+}
+
+/* Cheat panel on right */
+#cheatPanel{
+  position: fixed;
+  right: 0;
+  top:0;
+  bottom:0;
+  width:180px;
+  background: var(--panel);
+  border-left:2px solid rgba(0,0,0,0.06);
+  padding:12px;
+  box-sizing:border-box;
+}
+#cheatPanel h3{
+  margin-top:0;
+  color:var(--accent-darker);
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(12px, 2vw, 14px);
+  text-rendering: geometricPrecision;
+}
+
+#cheatPanel button{
+  width:100%;
+  margin:6px 0;
+  padding:12px 8px;
+  cursor:pointer;
+  border-radius:0;
+  border:3px solid var(--accent-darker);
+  background:rgba(255, 255, 255, 0.9);
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(8px, 1.5vw, 10px);
+  color: var(--accent-darker);
+  transition: all 0.15s ease;
+  text-rendering: geometricPrecision;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  box-shadow: 0 2px 0 var(--accent-darker);
+}
+
+#cheatPanel button:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 var(--accent-darker);
+}
+
+#cheatPanel button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 0 var(--accent-darker);
+}
+
+/* ---------- MAIN MENU NAVIGATION BUTTON ---------- */
+#mainMenuButton {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+}
+
+.menu-nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px solid #2b4a80;
+  border-radius: 0;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  color: #2b4a80;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  
+  /* Pixel-perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  text-rendering: geometricPrecision;
+  
+  /* Remove default styles */
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.menu-nav-button:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0 #2b4a80;
+}
+
+.menu-nav-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.menu-nav-button:focus {
+  background: rgba(255, 255, 255, 1);
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+.menu-nav-button .button-icon {
+  font-size: 16px;
+  margin-right: 8px;
+  line-height: 1;
+  filter: grayscale(100%);
+  transition: filter 0.15s ease;
+}
+
+.menu-nav-button:hover .button-icon,
+.menu-nav-button:focus .button-icon {
+  filter: grayscale(0%);
+}
+
+.menu-nav-button .button-text {
+  line-height: 1;
+  flex: 1;
+}
+
+/* small responsive */
+@media (max-width:720px){
+  #inventoryBar.expanded{ width: 60vw; max-width: 400px; }
+  #cheatPanel{ width:140px; }
+  
+  /* Adjust main menu button for small screens */
+  .menu-nav-button {
+    padding: 8px 12px;
+    font-size: 10px;
+  }
+  
+  .menu-nav-button .button-icon {
+    font-size: 14px;
+    margin-right: 6px;
+  }
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Settings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="title">
+        <h1>Settings</h1>
+    </div>
+    <div class="settings">
+        <div class="control">
+            <label for="master-volume">Master Volume</label>
+            <input type="range" id="master-volume" min="0" max="100" value="100">
+            <div class="slider-marks">
+                <span>0</span>
+                <span>100</span>
+            </div>
+        </div>
+        <div class="control">
+            <label for="sfx-volume">SFX</label>
+            <input type="range" id="sfx-volume" min="0" max="100" value="100">
+            <div class="slider-marks">
+                <span>0</span>
+                <span>100</span>
+            </div>
+        </div>
+        <div class="control">
+            <label for="music-volume">Music</label>
+            <input type="range" id="music-volume" min="0" max="100" value="100">
+            <div class="slider-marks">
+                <span>0</span>
+                <span>100</span>
+            </div>
+        </div>
+        <div class="control control-row">
+            <label for="fullscreen-toggle">Fullscreen</label>
+            <div id="fullscreen-toggle"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    
+    <!-- Audio System Integration -->
+    <link rel="stylesheet" href="../audio/AudioActivationOverlay.css">
+    <script src="../audio/AudioActivationOverlay.js"></script>
+    <script src="../audio/AudioManager.js"></script>
+    <script src="../audio/MusicManager.js"></script>
+    <script src="../audio/SFXManager.js"></script>
+    <script src="../audio/SettingsManager.js"></script>
+    <script src="../audio/init.js"></script>
+
+</body>
+</html>

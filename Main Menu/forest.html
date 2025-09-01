@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TypeSprout – Forest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+</head>
+<body>
+  <div class="page-container">
+    <div class="page-stage">
+      <!-- Background (consistent with main menu) -->
+      <div class="page-background"></div>
+      
+      <!-- Page Content -->
+      <div class="page-content">
+        <h1 class="page-title">🌲 FOREST 🌲</h1>
+        <p class="page-description">
+          Explore different tree environments<br/>
+          and unlock new typing challenges
+        </p>
+        
+        <!-- Forest environments grid -->
+        <div class="content-section">
+          <div class="forest-grid">
+            <div class="forest-item">
+              <div style="font-size: 24px; margin-bottom: 8px;">🌲</div>
+              <div class="entry-name">Pine Forest</div>
+              <div class="entry-description">Coming Soon</div>
+            </div>
+            <div class="forest-item">
+              <div style="font-size: 24px; margin-bottom: 8px;">🌳</div>
+              <div class="entry-name">Oak Grove</div>
+              <div class="entry-description">Coming Soon</div>
+            </div>
+            <div class="forest-item">
+              <div style="font-size: 24px; margin-bottom: 8px;">🌴</div>
+              <div class="entry-name">Tropical</div>
+              <div class="entry-description">Coming Soon</div>
+            </div>
+            <div class="forest-item">
+              <div style="font-size: 24px; margin-bottom: 8px;">🌿</div>
+              <div class="entry-name">Bamboo</div>
+              <div class="entry-description">Coming Soon</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Back button -->
+        <div class="back-button-container">
+          <button class="page-button" onclick="window.location.href='mainmenu.html'">
+            <span class="button-icon">🏠</span>
+            BACK TO MENU
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Audio System Integration -->
+  <link rel="stylesheet" href="../audio/AudioActivationOverlay.css">
+  <script src="../audio/AudioActivationOverlay.js"></script>
+  <script src="../audio/AudioManager.js"></script>
+  <script src="../audio/MusicManager.js"></script>
+  <script src="../audio/SFXManager.js"></script>
+  <script src="../audio/SettingsManager.js"></script>
+  <script src="../audio/init.js"></script>
+</body>
+</html>

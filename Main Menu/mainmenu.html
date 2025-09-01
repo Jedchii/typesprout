@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tree Typing – Main Menu</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="mainmenu.css" />
+</head>
+<body>
+  <div class="menu-container">
+    <div class="menu-stage" id="menuStage">
+      <!-- Background (could be static or subtle animation) -->
+      <div class="menu-background"></div>
+      
+      <!-- Main Menu Content -->
+      <div class="menu-content">
+        <h1 class="menu-title">TYPESPROUT</h1>
+        
+        <nav class="menu-nav" role="navigation">
+          <button class="menu-button" data-action="play" role="button">
+            <span class="button-icon">🌱</span>
+            <span class="button-text">PLAY</span>
+          </button>
+          
+          <button class="menu-button" data-action="forest" role="button">
+            <span class="button-icon">🌲</span>
+            <span class="button-text">FOREST</span>
+          </button>
+          
+          <button class="menu-button" data-action="treedex" role="button">
+            <span class="button-icon">📚</span>
+            <span class="button-text">TREEDEX</span>
+          </button>
+          
+          <button class="menu-button" data-action="settings" role="button">
+            <span class="button-icon">⚙️</span>
+            <span class="button-text">SETTINGS</span>
+          </button>
+        </nav>
+        
+        <!-- Footer info -->
+        <div class="menu-footer">
+          <p class="version-text">v1.0.0</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="mainmenu.js"></script>
+  
+  <!-- Audio System Integration -->
+  <link rel="stylesheet" href="../audio/AudioActivationOverlay.css">
+  <script src="../audio/AudioActivationOverlay.js"></script>
+  <script src="../audio/AudioManager.js"></script>
+  <script src="../audio/MusicManager.js"></script>
+  <script src="../audio/SFXManager.js"></script>
+  <script src="../audio/SettingsManager.js"></script>
+  <script src="../audio/init.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>TreeDex</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="title">
+        <h1>TreeDex</h1>
+    </div>
+    <div class="treeDex">
+
+        <div class="treeList">
+
+        </div>
+
+        <div class="treeEntries">
+            <div id="upperEntry">
+                <div class="growthStages">
+                    <div class="seedStage">
+                        <img src="assets/seed/1commonSeed.png" alt="Oak Seed" height="80vh">
+                    </div>
+                    <div class="growthArrow">
+                        <img src="assets/arrowdown.png" alt="Arrow" height="30vh">
+                    </div>
+                    <div class="sproutStage">
+                        <img src="assets/sprout/01oakSprout.png"alt="Oak Sprout" height="80vh">
+                    </div>
+                    <div class="growthArrow">
+                        <img src="assets/arrowdown.png" alt="Arrow" height="30vh">
+                    </div>
+                    <div class="treeStage">
+                        <img src="assets/tree/01oakTree.png" alt="Oak Tree" height="80vh">
+                    </div>
+                </div>
+                <div class="treeProfile">
+                    <img src="assets/tree/01oakTree.png" alt="Oak Tree" height="350vh">
+                </div>
+                <div id="rightEntry">
+                    <div id="namesBox">
+                        <div class="name">
+                            <p id="nameText"></p>
+                        </div>
+                        <div class="sciName">
+                            <p id="sciNameText"></p>
+                        </div>
+                    </div>
+                    <div id="nativeRangeBox">
+                        <div class="nativeRangeLabel">
+                            <p id="nativeRangeLabelText"></p>
+                        </div>
+                        <div class="nativeRange">
+                            <p id="nativeRangeText"></p>
+                        </div>
+                    </div>
+                    <div class="rarity">
+                        <p id="rarityText"></p>
+                    </div>
+                </div>
+            </div>
+            <p id="descriptionText"></p>
+        </div>
+
+    </div>
+    
+    <!-- Back to Main Menu button -->
+    <div id="mainMenuButton">
+      <button class="menu-nav-button" onclick="window.location.href='../Main Menu/mainmenu.html'">
+        <span class="button-icon">🏠</span>
+        <span class="button-text">BACK TO MENU</span>
+      </button>
+    </div>
+    
+    <!-- Audio System Integration -->
+    <link rel="stylesheet" href="../audio/AudioActivationOverlay.css">
+    <script src="../audio/AudioActivationOverlay.js"></script>
+    <script src="../audio/AudioManager.js"></script>
+    <script src="../audio/MusicManager.js"></script>
+    <script src="../audio/SFXManager.js"></script>
+    <script src="../audio/SettingsManager.js"></script>
+    <script src="../audio/init.js"></script>
+    </body>
+  </html>

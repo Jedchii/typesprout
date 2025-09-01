@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tree Typing – Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+</head>
+<body>
+  <div class="page-container">
+    <div class="page-stage">
+      <!-- Background (consistent with main menu) -->
+      <div class="page-background"></div>
+      
+      <!-- Page Content -->
+      <div class="page-content">
+        <h1 class="page-title">🌱 GAME MODE 🌱</h1>
+        <p class="page-description">
+          Choose your typing challenge and grow your forest!
+        </p>
+        
+        <div class="page-nav">
+          <button class="page-button primary" onclick="startGameWithLoading()">
+            <span class="button-icon">🎮</span>
+            START GAME
+          </button>
+        </div>
+        
+        <!-- Back button -->
+        <div class="back-button-container">
+          <button class="page-button" onclick="window.location.href='mainmenu.html'">
+            <span class="button-icon">🏠</span>
+            BACK TO MENU
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Popup -->
+  <div class="loading-popup" id="loading-popup">
+    <div class="loading-content">
+      <div class="loading-message">Get Ready to Race!</div>
+      <div class="loading-spinner">
+        <div class="spinner-leaf"></div>
+        <div class="spinner-leaf"></div>
+        <div class="spinner-leaf"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function startGameWithLoading() {
+      // Show loading popup
+      const loadingPopup = document.getElementById('loading-popup');
+      loadingPopup.style.display = 'flex';
+      
+      // Add fade-in animation
+      setTimeout(() => {
+        loadingPopup.classList.add('show');
+      }, 10);
+      
+      // Navigate to Main Game after 3 seconds
+      setTimeout(() => {
+        window.location.href = '../Main Game/index.html';
+      }, 3000);
+    }
+  </script>
+  
+  <!-- Audio System Integration -->
+  <link rel="stylesheet" href="../audio/AudioActivationOverlay.css">
+  <script src="../audio/AudioActivationOverlay.js"></script>
+  <script src="../audio/AudioManager.js"></script>
+  <script src="../audio/MusicManager.js"></script>
+  <script src="../audio/SFXManager.js"></script>
+  <script src="../audio/SettingsManager.js"></script>
+  <script src="../audio/init.js"></script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+/* ---------- SETTINGS-SPECIFIC STYLES ---------- */
+/* Extends pages.css with custom settings controls */
+
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.settings-group {
+  background: rgba(255, 255, 255, 0.1);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  text-align: left;
+}
+
+.group-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(10px, 2vw, 14px);
+  color: #fff;
+  margin: 0 0 20px 0;
+  text-align: center;
+  text-shadow:
+    0 2px 0 #2b4a80, 2px 0 0 #2b4a80, -2px 0 0 #2b4a80, 0 -2px 0 #2b4a80;
+  image-rendering: pixelated;
+  text-rendering: geometricPrecision;
+}
+
+.control-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.control-item:last-child {
+  margin-bottom: 0;
+}
+
+.control-label {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(8px, 1.5vw, 12px);
+  color: #fff;
+  text-shadow:
+    0 2px 0 #2b4a80, 2px 0 0 #2b4a80, -2px 0 0 #2b4a80, 0 -2px 0 #2b4a80;
+  image-rendering: pixelated;
+  text-rendering: geometricPrecision;
+}
+
+/* ---------- VOLUME SLIDER STYLES ---------- */
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.volume-slider {
+  flex: 1;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid #fff;
+  border-radius: 0;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  
+  /* Pixel-perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.volume-slider:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Webkit slider thumb */
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border: 2px solid #2b4a80;
+  border-radius: 0;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #2b4a80;
+  transition: all 0.1s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+  background: #f0f0f0;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 #2b4a80;
+}
+
+.volume-slider::-webkit-slider-thumb:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 0 #2b4a80;
+}
+
+/* Firefox slider thumb */
+.volume-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border: 2px solid #2b4a80;
+  border-radius: 0;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #2b4a80;
+  transition: all 0.1s ease;
+}
+
+.volume-slider::-moz-range-thumb:hover {
+  background: #f0f0f0;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 #2b4a80;
+}
+
+.volume-slider::-moz-range-thumb:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 0 #2b4a80;
+}
+
+/* Slider track styling */
+.volume-slider::-webkit-slider-track {
+  height: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.volume-slider::-moz-range-track {
+  height: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;
+}
+
+.slider-value {
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(8px, 1.2vw, 10px);
+  color: #fff;
+  min-width: 40px;
+  text-align: right;
+  text-shadow:
+    0 1px 0 #2b4a80, 1px 0 0 #2b4a80, -1px 0 0 #2b4a80, 0 -1px 0 #2b4a80;
+  image-rendering: pixelated;
+  text-rendering: geometricPrecision;
+}
+
+/* ---------- FULLSCREEN TOGGLE STYLES ---------- */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid #fff;
+  border-radius: 0;
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(8px, 1.2vw, 10px);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  
+  /* Pixel-perfect rendering */
+  image-rendering: pixelated;
+  text-rendering: geometricPrecision;
+  
+  /* Remove default button styles */
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.toggle-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 0 #2b4a80;
+}
+
+.toggle-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.toggle-button:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.toggle-button[aria-checked="true"] {
+  background: rgba(106, 150, 40, 0.8);
+  border-color: #6a9628;
+}
+
+.toggle-button[aria-checked="true"]:hover {
+  background: rgba(106, 150, 40, 1);
+  box-shadow: 0 2px 0 #4a6b1a;
+}
+
+.toggle-indicator {
+  width: 12px;
+  height: 12px;
+  border: 2px solid currentColor;
+  background: transparent;
+  display: inline-block;
+  position: relative;
+}
+
+.toggle-button[aria-checked="true"] .toggle-indicator {
+  background: currentColor;
+}
+
+.toggle-button[aria-checked="true"] .toggle-indicator::after {
+  content: "✓";
+  position: absolute;
+  top: -6px;
+  left: -2px;
+  font-size: 10px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.toggle-text {
+  font-weight: normal;
+}
+
+.toggle-button[aria-checked="true"] .toggle-text {
+  color: #fff;
+}
+
+/* ---------- RESPONSIVE ADJUSTMENTS ---------- */
+@media (max-width: 768px) {
+  .settings-container {
+    max-width: 100%;
+    gap: 20px;
+  }
+  
+  .settings-group {
+    padding: 15px;
+  }
+  
+  .control-item {
+    margin-bottom: 15px;
+  }
+  
+  .slider-container {
+    gap: 10px;
+  }
+  
+  .slider-value {
+    min-width: 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .control-item {
+    gap: 8px;
+  }
+  
+  .volume-slider {
+    height: 18px;
+  }
+  
+  .volume-slider::-webkit-slider-thumb,
+  .volume-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .toggle-button {
+    padding: 10px 12px;
+    gap: 6px;
+  }
+  
+  .toggle-indicator {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes settings-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.settings-group {
+  animation: settings-fade-in 0.6s ease-out;
+}
+
+.settings-group:nth-child(1) { animation-delay: 0.1s; }
+.settings-group:nth-child(2) { animation-delay: 0.2s; }
+.settings-group:nth-child(3) { animation-delay: 0.3s; }

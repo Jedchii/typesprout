@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tree Typing – Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+  <link rel="stylesheet" href="settings.css" />
+</head>
+<body>
+  <div class="page-container">
+    <div class="page-stage">
+      <!-- Background (consistent with main menu) -->
+      <div class="page-background"></div>
+      
+      <!-- Page Content -->
+      <div class="page-content">
+        <h1 class="page-title">⚙️ SETTINGS ⚙️</h1>
+        <p class="page-description">
+          Customize your Tree Typing experience
+        </p>
+        
+        <!-- Settings Controls Section -->
+        <div class="content-section">
+          <div class="settings-container">
+            
+            <!-- Volume Controls -->
+            <div class="settings-group">
+              <h3 class="group-title">🔊 AUDIO SETTINGS</h3>
+              
+              <div class="control-item">
+                <label for="master-volume" class="control-label">Master Volume</label>
+                <div class="slider-container">
+                  <input type="range" id="master-volume" class="volume-slider" min="0" max="100" value="100">
+                  <div class="slider-value" id="master-volume-value">100%</div>
+                </div>
+              </div>
+              
+              <div class="control-item">
+                <label for="music-volume" class="control-label">Music Volume</label>
+                <div class="slider-container">
+                  <input type="range" id="music-volume" class="volume-slider" min="0" max="100" value="100">
+                  <div class="slider-value" id="music-volume-value">100%</div>
+                </div>
+              </div>
+              
+              <div class="control-item">
+                <label for="sfx-volume" class="control-label">SFX Volume</label>
+                <div class="slider-container">
+                  <input type="range" id="sfx-volume" class="volume-slider" min="0" max="100" value="100">
+                  <div class="slider-value" id="sfx-volume-value">100%</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Display Settings -->
+            <div class="settings-group">
+              <h3 class="group-title">📺 DISPLAY SETTINGS</h3>
+              
+              <div class="control-item">
+                <label for="fullscreen-toggle" class="control-label">Fullscreen Mode</label>
+                <div class="toggle-container">
+                  <button id="fullscreen-toggle" class="toggle-button" role="switch" aria-checked="false">
+                    <span class="toggle-indicator"></span>
+                    <span class="toggle-text">OFF</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="page-nav">
+          <button class="page-button primary" id="reset-settings">
+            <span class="button-icon">🔄</span>
+            RESET TO DEFAULTS
+          </button>
+        </div>
+        
+        <!-- Back button -->
+        <div class="back-button-container">
+          <button class="page-button" onclick="window.location.href='mainmenu.html'">
+            <span class="button-icon">🏠</span>
+            BACK TO MENU
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Audio System Integration -->
+  <link rel="stylesheet" href="../audio/AudioActivationOverlay.css">
+  <script src="../audio/AudioActivationOverlay.js"></script>
+  <script src="../audio/AudioManager.js"></script>
+  <script src="../audio/MusicManager.js"></script>
+  <script src="../audio/SFXManager.js"></script>
+  <script src="../audio/SettingsManager.js"></script>
+  <script src="../audio/init.js"></script>
+  
+  <!-- Settings Functionality -->
+  <script src="settings.js"></script>
+</body>
+</html>

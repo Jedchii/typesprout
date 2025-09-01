@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tree Typing – Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+</head>
+<body>
+  <div class="page-container">
+    <div class="page-stage">
+      <!-- Background (consistent with main menu) -->
+      <div class="page-background"></div>
+      
+      <!-- Page Content -->
+      <div class="page-content">
+        <h1 class="page-title">⚙️ SETTINGS ⚙️</h1>
+        <p class="page-description">
+          Customize your Tree Typing experience
+        </p>
+        
+        <!-- Settings Section -->
+        <div class="content-section">
+          <div class="settings-list">
+            <p>🔊 Audio: ON</p>
+            <p>⚡ Difficulty: MEDIUM</p>
+            <p>🎨 Theme: FOREST</p>
+            <p>📺 Fullscreen: OFF</p>
+            <p>⌨️ Key Sounds: ON</p>
+            <p>🌟 Effects: HIGH</p>
+          </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="page-nav">
+          <button class="page-button" onclick="alert('Settings will be configurable in future update!')">
+            <span class="button-icon">🔧</span>
+            CONFIGURE
+          </button>
+          <button class="page-button" onclick="alert('Profile system coming soon!')">
+            <span class="button-icon">👤</span>
+            PROFILE
+          </button>
+        </div>
+        
+        <!-- Back button -->
+        <div class="back-button-container">
+          <button class="page-button" onclick="window.location.href='mainmenu.html'">
+            <span class="button-icon">🏠</span>
+            BACK TO MENU
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Audio System Integration -->
+  <script src="../audio/AudioManager.js"></script>
+  <script src="../audio/MusicManager.js"></script>
+  <script src="../audio/SFXManager.js"></script>
+  <script src="../audio/SettingsManager.js"></script>
+  <script src="../audio/init.js"></script>
+</body>
+</html>

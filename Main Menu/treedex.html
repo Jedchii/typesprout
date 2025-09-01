@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tree Typing – TreeDex</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+</head>
+<body>
+  <div class="page-container">
+    <div class="page-stage">
+      <!-- Background (consistent with main menu) -->
+      <div class="page-background"></div>
+      
+      <!-- Page Content -->
+      <div class="page-content">
+        <h1 class="page-title">📚 TREEDEX 📚</h1>
+        <p class="page-description">
+          Discover tree facts, view your typing progress,<br/>
+          and unlock achievements
+        </p>
+        
+        <!-- Stats Section -->
+        <div class="content-section">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-label">TREES TYPED</div>
+              <div class="stat-value">0</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">WPM AVERAGE</div>
+              <div class="stat-value">--</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">ACCURACY</div>
+              <div class="stat-value">--%</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">LEVEL</div>
+              <div class="stat-value">1</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tree Entries Section -->
+        <div class="content-section">
+          <div class="treedex-entries">
+            <div class="treedex-entry">
+              <div class="entry-icon">🌱</div>
+              <div class="entry-info">
+                <div class="entry-name">Seedling</div>
+                <div class="entry-description">Your first tree friend. Small but full of potential!</div>
+              </div>
+            </div>
+            <div class="treedex-entry" style="opacity: 0.5;">
+              <div class="entry-icon">🌲</div>
+              <div class="entry-info">
+                <div class="entry-name">Pine Tree</div>
+                <div class="entry-description">??? - Complete Pine Forest to unlock</div>
+              </div>
+            </div>
+            <div class="treedex-entry" style="opacity: 0.5;">
+              <div class="entry-icon">🌳</div>
+              <div class="entry-info">
+                <div class="entry-name">Oak Tree</div>
+                <div class="entry-description">??? - Complete Oak Grove to unlock</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Back button -->
+        <div class="back-button-container">
+          <button class="page-button" onclick="window.location.href='mainmenu.html'">
+            <span class="button-icon">🏠</span>
+            BACK TO MENU
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

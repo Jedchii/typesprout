@@ -1,0 +1,133 @@
+/* ---------- GLOBAL ---------- */
+html, body { height: 100%; margin: 0; overflow: hidden; }
+* { image-rendering: pixelated; image-rendering: crisp-edges; }
+:root {
+  --px:4px;
+  --bg-pan:3%;
+}
+
+.cutscene-container {
+  width: 100vw; height: 100vh;
+  background: #5d94f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Fullscreen stage that scales to fill viewport */
+.stage {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  transition: opacity .6s ease;
+  overflow: hidden;
+  
+  /* Maintain aspect ratio while filling screen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Inner content maintains 16:9 aspect ratio */
+.stage > * {
+  transform-origin: center center;
+}
+
+/* ---------- VIDEO BACKGROUND ---------- */
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 1;
+  /* Pixel-perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  /* Prevent blur on scaling */
+  filter: none;
+  transform-origin: center;
+}
+
+/* Fallback static background when video fails */
+.bg-fallback {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 1;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  display: none; /* Hidden by default, shown via JS if video fails */
+}
+
+/* Optional subtle sunlight overlay */
+.sunlight-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(60% 55% at 50% 65%, rgba(255,255,210,.15), rgba(255,255,255,0));
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.6;
+}
+
+/* ---------- UI ELEMENTS ---------- */
+.title {
+  position: absolute;
+  left: 50%;
+  top: 15vh;  /* Use viewport units for responsive positioning */
+  transform: translateX(-50%);
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(24px, 5vw, 72px);  /* Responsive font size */
+  letter-spacing: 2px;
+  color: #fff;
+  z-index: 4;
+  line-height: 1;
+  text-shadow:
+    0 4px 0 #2b4a80, 4px 0 0 #2b4a80, -4px 0 0 #2b4a80, 0 -4px 0 #2b4a80;
+  /* Ensure text remains crisp */
+  image-rendering: pixelated;
+  text-rendering: geometricPrecision;
+}
+
+.start-prompt {
+  position: absolute;
+  left: 50%;
+  top: 50vh;  /* Center vertically */
+  transform: translateX(-50%);
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(16px, 3vw, 48px);  /* Responsive font size */
+  color: #fff;
+  z-index: 4;
+  cursor: pointer;
+  opacity: 0;
+  text-shadow:
+    0 3px 0 #2b4a80, 3px 0 0 #2b4a80, -3px 0 0 #2b4a80, 0 -3px 0 #2b4a80;
+  animation: fade-in 1.2s ease-out .8s forwards, pulse 1.2s ease-in-out 2s infinite;
+  /* Ensure text remains crisp */
+  image-rendering: pixelated;
+  text-rendering: geometricPrecision;
+}
+
+/* UI Animations */
+@keyframes fade-in { to { opacity: 1; } }
+@keyframes pulse {
+  0%,100%{ transform:translateX(-50%) scale(1);}
+  50%{ transform:translateX(-50%) scale(1.03);}
+}
+
+/* Stage transition for menu navigation */
+.stage.fade-out {
+  opacity: 0;
+  transition: opacity .6s ease;
+}
