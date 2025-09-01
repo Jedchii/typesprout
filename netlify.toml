@@ -1,8 +1,9 @@
 [build]
-  publish = "/"
-  command = "echo 'No build command needed'"
+  command = ""          # no build step for plain HTML/CSS/JS
+  publish = "Main Menu" # <-- change to the folder you chose
 
-[[redirects]]
-  from = "/*"
-  to = "/Main Menu/index.html"
-  status = 200
+# If this is a single-page app (client-side routing), uncomment:
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200
