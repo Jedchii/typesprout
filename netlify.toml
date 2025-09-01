@@ -1,8 +1,8 @@
 [build]
-  command = ""          # no build step for plain HTML/CSS/JS
-  publish = "Main Menu" # <-- change to the folder you chose
+  command = ""
+  publish = "."
 
-# If this is a single-page app (client-side routing), uncomment:
+# Uncomment if you use SPA-style routing:
 # [[redirects]]
 #   from = "/*"
 #   to = "/index.html"
