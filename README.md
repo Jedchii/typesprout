@@ -5,7 +5,6 @@
 A comprehensive pixel-art typing game that combines competitive typing races with tree collecting, forest management, and educational content. Master your typing skills while building your own virtual forest ecosystem!
 
 ![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Platform](https://img.shields.io/badge/platform-web-blue.svg)
 
 ## 🎮 Game Overview
@@ -279,10 +278,6 @@ python -m http.server 8000
 - [ ] Global leaderboards and tournaments
 - [ ] Custom forest sharing and community features
 - [ ] Advanced audio system with 3D spatial effects
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
